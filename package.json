@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-xo-game",
+  "version": "1.0.0",
+  "main": "index.html",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "scripts": {
+    "start:backend": "nodemon index.js",
+    "start:frontend": "http-server -p 3000",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.4",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "http-server": "^14.1.1",
+    "nodemon": "^3.0.2"
+  }
+}

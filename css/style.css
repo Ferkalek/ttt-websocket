@@ -1,0 +1,396 @@
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Barlow', 'Roboto', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html,
+body {
+  height: 100%;
+  font-size: 16px;
+  line-height: 1.31;
+}
+
+body {
+  color: #b7b7b7;
+  background-color: #232323;
+  transition: opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  padding: 3rem 2rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.flex-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #FCB222;
+}
+
+.toolbar p {
+  letter-spacing: 0.4px;
+}
+
+.players,
+.type-of-player {
+    margin-bottom: 1rem;
+}
+
+.invite-friend p {
+    margin-bottom: 0.5rem;
+}
+
+.toolbar span {
+    font-weight: 600;
+    color: #FCB222;
+}
+
+.link-field-wrapper {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.link-field-wrapper input {
+  background-color: #2E2E2E;
+  padding: 10px;
+  border: 1px solid #575757;
+  border-radius: 6px;
+  color: #b7b7b7;
+  outline: none;
+}
+
+.link-field-wrapper input:focus,
+.link-field-wrapper input:active {
+  border-color: #FCB222;
+}
+
+.link-field-wrapper button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s;
+}
+
+.link-field-wrapper button:hover,
+.link-field-wrapper button:focus,
+.link-field-wrapper button:active {
+  opacity: 0.5;
+}
+  
+table {
+  border-collapse: collapse;
+}
+
+td {
+  width: 100px;
+  height: 100px;
+  border: 1px solid transparent;
+  font-weight: 200;
+}
+
+td:before, td:after {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.5rem;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: inherit;
+}
+
+.elem-x:before {
+  content: '\00d7';
+  font-size: 6rem;
+}
+
+.elem-o:before {
+  content: '\0030';
+}
+
+.is-block td  {
+  pointer-events: none;
+}
+
+.is-block .torn {
+  opacity: 0.1;
+}
+
+td:not(:last-of-type) {
+  border-right-color: #888;
+}
+
+tr:not(:last-of-type) td {
+  border-bottom-color: #888;
+}
+
+.elem-x:before,
+.elem-o:before {
+  opacity: 1;
+}
+
+#wrapper {
+  position: relative;
+}
+
+#wrapper:before {
+  content: '';
+  display: block;
+  opacity: 0;
+  width: 300px;
+  height: 1px;
+  background-color: #FCB222;
+  position: absolute;
+}
+
+#wrapper[class^='winner-']:before {
+  opacity: 1;
+}
+
+#wrapper.winner-1:before,
+#wrapper.winner-2:before,
+#wrapper.winner-3:before {
+  left: 2px;
+}
+
+#wrapper.winner-1:before {
+  top: 55px;
+}
+#wrapper.winner-2:before {
+  top: 126px;
+}
+#wrapper.winner-3:before {
+  top: 256px;
+}
+
+#wrapper.winner-4:before,
+#wrapper.winner-5:before,
+#wrapper.winner-6:before,
+#wrapper.winner-7:before,
+#wrapper.winner-8:before {
+  transform-origin: top left;
+}
+
+#wrapper.winner-4:before,
+#wrapper.winner-5:before,
+#wrapper.winner-6:before {
+  transform: rotate(90deg);
+  top: 2px;
+}
+
+#wrapper.winner-4:before {
+  left: 50px;
+}
+#wrapper.winner-5:before {
+  left: 150px;
+}
+#wrapper.winner-6:before {
+  left: 250px;
+}
+
+#wrapper.winner-7:before,
+#wrapper.winner-8:before {
+  width: 375px;
+  left: 18px;
+}
+
+#wrapper.winner-7:before {
+  transform: rotate(45deg);
+  top: 24px;
+}
+#wrapper.winner-8:before {
+  transform: rotate(-45deg);
+  top: 289px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.btn-wrap {
+  margin-top: 1.5rem;
+}
+
+.btn-wrap button {
+  text-transform: uppercase;
+  background-color: #2E2E2E;
+  padding: 2px 12px 2px 6px;
+  border: 1px solid #575757;
+  color: #FCB222;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.3s;
+}
+
+.btn-wrap button:hover,
+.btn-wrap button:focus,
+.btn-wrap button:active {
+  opacity: 0.5;
+}
+
+.notification {
+  z-index: 9999;
+  position: fixed;
+  top: 50px;
+  right: -999px;
+  border-radius: 4px;
+  padding: 15px 35px 15px 15px;
+  transition: right .5s cubic-bezier(.35,.7,.35,1);
+}
+
+.notification.show {
+  right: 50px;
+}
+
+.notification.success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.notification.failed {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.notification.warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.notification .msg {
+margin-right: 15px;
+}
+
+.close {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  background: transparent;
+  padding: 4px;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 24px !important;
+  line-height: 1.2;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+}
+
+.close:hover,
+.close:active,
+.close:focus {
+  opacity: 0.6;
+}
+
+@media only screen and (max-width: 1024px) and (orientation: landscape) {
+  body {
+    font-size: 12px;
+  }
+
+  .container {
+    max-width: 600px;
+  }
+
+  h1 {
+    position: absolute;
+    top: 3rem;
+    left: 2rem;
+  }
+
+  .toolbar {
+    padding-top: 4rem;
+  }
+
+  td {
+    width: 70px;
+    height: 70px;
+  }
+
+  td:before, td:after {
+    font-size: 2.5rem;
+  }
+  
+  .elem-x:before {
+    font-size: 4rem;
+  }
+  
+  #wrapper:before {
+    width: 210px;
+  }
+  
+  #wrapper.winner-1:before {
+    top: 40px;
+  }
+  #wrapper.winner-2:before {
+    top: 109px;
+  }
+  #wrapper.winner-3:before {
+    top: 179px;
+  }
+  
+  #wrapper.winner-4:before {
+    left: 36px;
+  }
+  #wrapper.winner-5:before {
+    left: 106px;
+  }
+  #wrapper.winner-6:before {
+    left: 176px;
+  }
+  
+  #wrapper.winner-7:before,
+  #wrapper.winner-8:before {
+    width: 245px;
+    left: 20px;
+  }
+  
+  #wrapper.winner-7:before {
+    top: 24px;
+  }
+  #wrapper.winner-8:before {
+    top: 195px;
+  }
+}
+
+
+@media only screen and (max-width: 991px) and (orientation: portrait) {
+  .flex-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+}
