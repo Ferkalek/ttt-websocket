@@ -8,7 +8,7 @@ Run command
 npm i
 ```
 
-###RUN APP
+### RUN APP
 To run the app
 ```bash
 npm start
