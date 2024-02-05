@@ -24,9 +24,10 @@ app.get('/getGameKey', (req, res) => {
 const server = http.createServer(app);
 
 const io = new Server(server, {
+  // Дозвіл на з'єднання з джерелом. 
+  // В цьому випадку - дозволити всім, але можна прописати конкретний домен, наприклад: http://localhost:3004
   // cors: {
-  //   // origin: "http://localhost:3000"
-  //   origin: "*", // Дозвіл на з'єднання лише з цим джерелом
+  //   origin: "*", 
   //   methods: ["GET", "POST"]
   // }
 });
@@ -52,7 +53,7 @@ io.on('connection', (socket) => {
 
     // Обробник події виходу гравця з кімнати
     socket.on('disconnecting', (reason) => {
-      console.log(`Гравець вийшов з кімнати: ${socket.id}`, reason);
+      console.log(`User ${socket.id} left the game`, reason);
       playerCount--;
 
       // Оновлюємо лічильник гравців у всіх гравців у кімнаті

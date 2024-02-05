@@ -1,22 +1,22 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('body').style.opacity = 1;
 });
 
-const table = document.getElementById("table");
-const btnRestart = document.getElementById("restart");
+const table = document.getElementById('table');
+const btnRestart = document.getElementById('restart');
 
-const playerCountEl = document.getElementById("playerCount");
-const typeOfPlayer = document.getElementById("typeOfPlayer");
+const playerCountEl = document.getElementById('playerCount');
+const typeOfPlayer = document.getElementById('typeOfPlayer');
 
 const winResults = [
-  ["1", "2", "3"],
-  ["4", "5", "6"],
-  ["7", "8", "9"],
-  ["1", "4", "7"],
-  ["2", "5", "8"],
-  ["3", "6", "9"],
-  ["1", "5", "9"],
-  ["3", "5", "7"],
+  ['1', '2', '3'],
+  ['4', '5', '6'],
+  ['7', '8', '9'],
+  ['1', '4', '7'],
+  ['2', '5', '8'],
+  ['3', '6', '9'],
+  ['1', '5', '9'],
+  ['3', '5', '7'],
 ];
 
 let counterClick = 0;
@@ -39,8 +39,6 @@ let gameUrl = '';
 let amountOfPlayers = 0;
 
 function initialize(key) {
-  // socket = io(`http://localhost:3001/?gameKey=${key}`);
-  // https://5aa7-2a02-a31a-e043-6080-a8e8-21d2-7139-7398.ngrok-free.app
   socket = io(`/?gameKey=${key}`);
 
   socket.on('userConnected', () => {
@@ -96,12 +94,10 @@ function initialize(key) {
   // Обробка події встановлення хрестика
   socket.on('opponentSetCross', (position) => {
     // Логіка відображення хрестика опонента на вашому ігровому полі
-    console.log('---opponentSetCross', position);
-  
     setBlock(false);
     
     const el = document.querySelector(`[data-val="${position}"]`);
-    el.classList.add("elem-x");
+    el.classList.add('elem-x');
     arrX.push(position);
   
     if (arrX.length > 2) {
@@ -112,12 +108,10 @@ function initialize(key) {
   // Обробка події встановлення нолика
   socket.on('opponentSetZero', (position) => {
     // Логіка відображення нолика опонента на вашому ігровому полі
-    console.log('---opponentSetZero', position);
-  
     setBlock(false);
   
     const el = document.querySelector(`[data-val="${position}"]`);
-    el.classList.add("elem-o");
+    el.classList.add('elem-o');
     arr0.push(position);
   
     if (arr0.length > 2) {
@@ -129,15 +123,13 @@ function initialize(key) {
 
   socket.on('shouldRestartGame', () => {
     restartGame();
-    btnRestart.classList.add("hidden");
+    btnRestart.classList.add('hidden');
   });
 }
 
 if (gameKey) {
   initialize(gameKey);
 } else {
-  // https://5aa7-2a02-a31a-e043-6080-a8e8-21d2-7139-7398.ngrok-free.app
-  // fetch('http://localhost:3001/getGameKey')
   fetch('/getGameKey')
     .then(response => response.json())
     .then(data => {
@@ -149,19 +141,14 @@ if (gameKey) {
 
       initialize(gameKey);
     })
-    .catch(error => {
-      console.error('Error getting game key:', error);
-      showNotification('failed', 'Cannot getting game key');
-    });
+    .catch(() => showNotification('failed', 'Cannot getting game key'));
 }
 
 async function copyContent(text) {
   try {
     await navigator.clipboard.writeText(text);
-    console.log('The link copied to clipboard');
     showNotification('success', 'The link copied to clipboard');
   } catch (err) {
-    console.error('Failed to copy: ', err);
     showNotification('failed', 'Failed to copy of link');
   }
 }
@@ -205,17 +192,17 @@ function setBlock(val) {
 }
 
 function finishOfGame(result) {
-  document.getElementById("wrapper").classList.add(`winner-${result}`);
+  document.getElementById('wrapper').classList.add(`winner-${result}`);
     showButton();
     isStopGame = true;
 }
 
 
-table.addEventListener("click", function (e) {
+table.addEventListener('click', function (e) {
   if (
-    e.target.classList.contains("elem-x") ||
-    e.target.classList.contains("elem-o") ||
-    !e.target.classList.contains("cell") ||
+    e.target.classList.contains('elem-x') ||
+    e.target.classList.contains('elem-o') ||
+    !e.target.classList.contains('cell') ||
     isStopGame
   ) {
     return;
@@ -229,14 +216,14 @@ table.addEventListener("click", function (e) {
   // у випадку якщо грає сам з собою
   if (userType === null) {
     if (counterClick % 2) {
-      e.target.classList.add("elem-x");
+      e.target.classList.add('elem-x');
       arrX.push(value);
 
       if (arrX.length > 2) {
         result = checkoutWin(arrX);
       }
     } else {
-      e.target.classList.add("elem-o");
+      e.target.classList.add('elem-o');
       arr0.push(value);
 
       if (arr0.length > 2) {
@@ -247,7 +234,7 @@ table.addEventListener("click", function (e) {
 
   // у випадку коли грає двоє
   if (userType === USER_TYPE_CROSS) {
-    e.target.classList.add("elem-x");
+    e.target.classList.add('elem-x');
     setCross(value);
     arrX.push(value);
 
@@ -255,7 +242,7 @@ table.addEventListener("click", function (e) {
       result = checkoutWin(arrX);
     }
   } else if (userType === USER_TYPE_ZERO) {
-    e.target.classList.add("elem-o");
+    e.target.classList.add('elem-o');
     setZero(value);
     arr0.push(value);
 
@@ -288,20 +275,19 @@ function checkoutWin(arr) {
 }
 
 function showButton() {
-  if (btnRestart.classList.contains("hidden")) {
-    btnRestart.classList.remove("hidden");
+  if (btnRestart.classList.contains('hidden')) {
+    btnRestart.classList.remove('hidden');
   }
 }
 
-btnRestart.addEventListener("click", function (e) {
-  console.log('--------- e', e)
+btnRestart.addEventListener('click', function (e) {
   restartGame();
 
   if (socket && amountOfPlayers === 2) {
     socket.emit('restartGame');
   }
 
-  e.target.classList.add("hidden");
+  e.target.classList.add('hidden');
 });
 
 function restartGame() {
@@ -309,9 +295,9 @@ function restartGame() {
   counterClick = 0;
   arrX = [];
   arr0 = [];
-  document.getElementById("wrapper").className = "";
-  document.querySelectorAll("table td").forEach((elem) => {
-    elem.classList = "cell";
+  document.getElementById('wrapper').className = '';
+  document.querySelectorAll('table td').forEach((elem) => {
+    elem.classList = 'cell';
   });
 }
 
